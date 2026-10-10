@@ -1,0 +1,46 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --background: 40 33% 97%;
+    --foreground: 25 20% 18%;
+    --primary: 198 56% 36%;
+    --primary-foreground: 40 33% 98%;
+    --secondary: 35 30% 92%;
+    --secondary-foreground: 25 30% 25%;
+    --muted: 38 25% 91%;
+    --muted-foreground: 25 15% 45%;
+    --accent: 24 55% 42%;
+    --accent-foreground: 40 33% 98%;
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 35 20% 86%;
+    --input: 35 20% 88%;
+    --ring: 198 56% 36%;
+    --radius: 1rem;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'DM Sans', 'Plus Jakarta Sans', system-ui, sans-serif;
+  background-color: #faf7f2;
+  color: #2c2523;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+.font-serif-retro {
+  font-family: 'Playfair Display', 'Instrument Serif', Georgia, serif;
+}
+
+.font-display-retro {
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+
