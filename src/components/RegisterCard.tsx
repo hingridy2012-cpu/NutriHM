@@ -49,31 +49,30 @@ export const RegisterCard: React.FC<RegisterCardProps> = ({ onSwitchToLogin }) =
   };
 
   return (
-    <div className="w-full max-w-md p-8 bg-[#fbf9f5] rounded-3xl shadow-xl shadow-[#382b22]/5 border-2 border-[#e6dbcc] transition-all relative">
-      {/* Decorative Vintage Stamp Corner */}
-      <div className="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-[#c07a4a]/20 border border-[#c07a4a]/40 flex items-center justify-center pointer-events-none">
-        <span className="w-2 h-2 rounded-full bg-[#c07a4a]" />
-      </div>
+    <div className="w-full max-w-md p-8 sm:p-9 bg-white/95 rounded-3xl shadow-2xl shadow-emerald-950/5 border border-emerald-100/80 backdrop-blur-xl transition-all relative">
+      {/* Subtle Futuristic Accent Glow */}
+      <div className="absolute -top-10 -right-10 w-32 h-32 bg-emerald-400/15 rounded-full blur-2xl pointer-events-none" />
+      <div className="absolute -bottom-10 -left-10 w-28 h-28 bg-emerald-500/10 rounded-full blur-2xl pointer-events-none" />
 
-      <div className="mb-6 text-center">
+      <div className="mb-6 text-center relative z-10">
         <Logo size="lg" subtitle="Crie sua conta profissional no Nutri HM" />
       </div>
 
       {errorMessage && (
-        <div className="mb-6 p-4 rounded-2xl bg-[#fdf2f0] border border-[#f3c5c1] text-[#9a342d] text-xs font-semibold flex items-start gap-3 animate-in fade-in duration-200">
-          <AlertCircle className="w-4 h-4 text-[#ba3930] shrink-0 mt-0.5" />
+        <div className="mb-6 p-4 rounded-2xl bg-rose-50/90 border border-rose-200 text-rose-700 text-xs font-semibold flex items-start gap-3 animate-in fade-in duration-200">
+          <AlertCircle className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />
           <span className="leading-snug">{errorMessage}</span>
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-4 relative z-10">
         <div>
-          <label className="block text-[11px] font-bold uppercase tracking-wider text-[#635548] mb-1 font-serif-retro">
+          <label className="block text-[11px] font-bold uppercase tracking-wider text-emerald-900/70 mb-1">
             Nome Completo
           </label>
           <div className="relative">
-            <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[#8e8071]">
-              <User className="w-4 h-4 text-[#2b5870]" />
+            <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-emerald-600/70">
+              <User className="w-4 h-4" />
             </div>
             <input
               type="text"
@@ -81,18 +80,18 @@ export const RegisterCard: React.FC<RegisterCardProps> = ({ onSwitchToLogin }) =
               onChange={(e) => setNome(e.target.value)}
               required
               placeholder="Dra. Hingridy Marques"
-              className="w-full pl-10 pr-4 py-2.5 bg-[#f5efe6] border border-[#dacdbd] rounded-2xl text-[#2c241e] placeholder-[#9f9181] focus:outline-none focus:ring-2 focus:ring-[#2b5870]/30 focus:border-[#2b5870] focus:bg-white transition-all text-sm font-medium"
+              className="w-full pl-10 pr-4 py-2.5 bg-emerald-50/40 border border-emerald-100 rounded-2xl text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500 focus:bg-white transition-all text-sm font-medium"
             />
           </div>
         </div>
 
         <div>
-          <label className="block text-[11px] font-bold uppercase tracking-wider text-[#635548] mb-1 font-serif-retro">
-            E-mail
+          <label className="block text-[11px] font-bold uppercase tracking-wider text-emerald-900/70 mb-1">
+            E-mail Profissional
           </label>
           <div className="relative">
-            <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[#8e8071]">
-              <Mail className="w-4 h-4 text-[#2b5870]" />
+            <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-emerald-600/70">
+              <Mail className="w-4 h-4" />
             </div>
             <input
               type="email"
@@ -100,18 +99,18 @@ export const RegisterCard: React.FC<RegisterCardProps> = ({ onSwitchToLogin }) =
               onChange={(e) => setEmail(e.target.value)}
               required
               placeholder="exemplo@nutricao.com"
-              className="w-full pl-10 pr-4 py-2.5 bg-[#f5efe6] border border-[#dacdbd] rounded-2xl text-[#2c241e] placeholder-[#9f9181] focus:outline-none focus:ring-2 focus:ring-[#2b5870]/30 focus:border-[#2b5870] focus:bg-white transition-all text-sm font-medium"
+              className="w-full pl-10 pr-4 py-2.5 bg-emerald-50/40 border border-emerald-100 rounded-2xl text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500 focus:bg-white transition-all text-sm font-medium"
             />
           </div>
         </div>
 
         <div>
-          <label className="block text-[11px] font-bold uppercase tracking-wider text-[#635548] mb-1 font-serif-retro">
-            Senha <span className="text-[10px] text-[#c07a4a] font-semibold lowercase font-sans">(mínimo 9 caracteres)</span>
+          <label className="block text-[11px] font-bold uppercase tracking-wider text-emerald-900/70 mb-1">
+            Senha <span className="text-[10px] text-emerald-600 font-semibold lowercase font-sans">(mínimo 9 caracteres)</span>
           </label>
           <div className="relative">
-            <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[#8e8071]">
-              <Lock className="w-4 h-4 text-[#2b5870]" />
+            <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-emerald-600/70">
+              <Lock className="w-4 h-4" />
             </div>
             <input
               type="password"
@@ -120,18 +119,18 @@ export const RegisterCard: React.FC<RegisterCardProps> = ({ onSwitchToLogin }) =
               required
               minLength={9}
               placeholder="Pelo menos 9 caracteres"
-              className="w-full pl-10 pr-4 py-2.5 bg-[#f5efe6] border border-[#dacdbd] rounded-2xl text-[#2c241e] placeholder-[#9f9181] focus:outline-none focus:ring-2 focus:ring-[#2b5870]/30 focus:border-[#2b5870] focus:bg-white transition-all text-sm font-medium"
+              className="w-full pl-10 pr-4 py-2.5 bg-emerald-50/40 border border-emerald-100 rounded-2xl text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500 focus:bg-white transition-all text-sm font-medium"
             />
           </div>
         </div>
 
         <div>
-          <label className="block text-[11px] font-bold uppercase tracking-wider text-[#635548] mb-1 font-serif-retro">
+          <label className="block text-[11px] font-bold uppercase tracking-wider text-emerald-900/70 mb-1">
             Confirmar Senha
           </label>
           <div className="relative">
-            <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[#8e8071]">
-              <Lock className="w-4 h-4 text-[#2b5870]" />
+            <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-emerald-600/70">
+              <Lock className="w-4 h-4" />
             </div>
             <input
               type="password"
@@ -140,7 +139,7 @@ export const RegisterCard: React.FC<RegisterCardProps> = ({ onSwitchToLogin }) =
               required
               minLength={9}
               placeholder="Repita sua senha"
-              className="w-full pl-10 pr-4 py-2.5 bg-[#f5efe6] border border-[#dacdbd] rounded-2xl text-[#2c241e] placeholder-[#9f9181] focus:outline-none focus:ring-2 focus:ring-[#2b5870]/30 focus:border-[#2b5870] focus:bg-white transition-all text-sm font-medium"
+              className="w-full pl-10 pr-4 py-2.5 bg-emerald-50/40 border border-emerald-100 rounded-2xl text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500 focus:bg-white transition-all text-sm font-medium"
             />
           </div>
         </div>
@@ -148,7 +147,7 @@ export const RegisterCard: React.FC<RegisterCardProps> = ({ onSwitchToLogin }) =
         <button
           type="submit"
           disabled={loading}
-          className="w-full mt-2 py-3.5 px-4 bg-[#2a556f] hover:bg-[#204358] text-[#f7f2ea] font-serif-retro font-bold text-sm tracking-wide rounded-2xl shadow-md shadow-[#2a556f]/20 transition-all duration-200 flex items-center justify-center gap-2 border border-[#3e6f8d] disabled:opacity-70 cursor-pointer hover:translate-y-[-1px] active:translate-y-[0px]"
+          className="w-full mt-2 py-3.5 px-4 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm tracking-wide rounded-2xl shadow-lg shadow-emerald-600/25 hover:shadow-emerald-600/35 transition-all duration-200 flex items-center justify-center gap-2 disabled:opacity-70 cursor-pointer hover:translate-y-[-1px] active:translate-y-[0px]"
         >
           {loading ? (
             <>
@@ -157,20 +156,20 @@ export const RegisterCard: React.FC<RegisterCardProps> = ({ onSwitchToLogin }) =
             </>
           ) : (
             <>
-              <span>Registrar Consultório</span>
+              <span>Criar Conta</span>
               <ArrowRight className="w-4 h-4" />
             </>
           )}
         </button>
       </form>
 
-      <div className="mt-6 pt-5 border-t border-[#ebdfd1] text-center">
-        <p className="text-xs text-[#706456]">
+      <div className="mt-6 pt-5 border-t border-emerald-100/70 text-center relative z-10">
+        <p className="text-xs text-slate-500">
           Já possui cadastro?{' '}
           <button
             type="button"
             onClick={onSwitchToLogin}
-            className="font-bold text-[#c07a4a] hover:text-[#9e5d33] hover:underline inline-flex items-center gap-1 ml-1 cursor-pointer font-serif-retro text-sm"
+            className="font-bold text-emerald-600 hover:text-emerald-700 hover:underline inline-flex items-center gap-1 ml-1 cursor-pointer text-sm"
           >
             Fazer login
           </button>

@@ -2,22 +2,22 @@
 
 @layer base {
   :root {
-    --background: 40 33% 97%;
-    --foreground: 25 20% 18%;
-    --primary: 198 56% 36%;
-    --primary-foreground: 40 33% 98%;
-    --secondary: 35 30% 92%;
-    --secondary-foreground: 25 30% 25%;
-    --muted: 38 25% 91%;
-    --muted-foreground: 25 15% 45%;
-    --accent: 24 55% 42%;
-    --accent-foreground: 40 33% 98%;
-    --destructive: 0 70% 50%;
+    --background: 0 0% 100%;
+    --foreground: 160 40% 12%;
+    --primary: 158 64% 38%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 150 30% 96%;
+    --secondary-foreground: 160 45% 15%;
+    --muted: 150 20% 96%;
+    --muted-foreground: 160 15% 45%;
+    --accent: 152 70% 36%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 98%;
-    --border: 35 20% 86%;
-    --input: 35 20% 88%;
-    --ring: 198 56% 36%;
-    --radius: 1rem;
+    --border: 150 20% 90%;
+    --input: 150 20% 92%;
+    --ring: 158 64% 38%;
+    --radius: 1.25rem;
   }
 }
 
@@ -28,19 +28,22 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: 'DM Sans', 'Plus Jakarta Sans', system-ui, sans-serif;
-  background-color: #faf7f2;
-  color: #2c2523;
+  font-family: 'Plus Jakarta Sans', 'DM Sans', system-ui, sans-serif;
+  background-color: #fbfdfc;
+  color: #0f241d;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
 }
 
-.font-serif-retro {
-  font-family: 'Playfair Display', 'Instrument Serif', Georgia, serif;
+.glass-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(16, 185, 129, 0.15);
 }
 
-.font-display-retro {
-  font-family: 'Space Grotesk', sans-serif;
+.glow-emerald {
+  box-shadow: 0 0 30px -5px rgba(16, 185, 129, 0.15);
 }
 
 

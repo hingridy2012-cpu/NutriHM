@@ -27,48 +27,48 @@ export function App() {
     return <Dashboard />;
   }
 
-  // Tela de Autenticação (Login / Cadastro) com estética Retrô Editorial
+  // Tela de Autenticação (Login / Cadastro) com estética Verde + Branco Futurista Clean
   return (
-    <div className="min-h-screen bg-[#faf7f2] flex items-center justify-center p-4 sm:p-8 relative overflow-hidden text-[#2c2523]">
-      {/* Background Vintage Texture & Soft Vignette */}
-      <div className="absolute inset-0 bg-[radial-gradient(#e3d7c7_1px,transparent_1px)] [background-size:24px_24px] opacity-40 pointer-events-none" />
-      <div className="absolute -top-32 -left-32 w-96 h-96 bg-[#2a556f]/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute -bottom-32 -right-32 w-96 h-96 bg-[#c07a4a]/15 rounded-full blur-3xl pointer-events-none" />
+    <div className="min-h-screen bg-[#f8faf9] flex items-center justify-center p-4 sm:p-8 relative overflow-hidden text-slate-900">
+      {/* Background Bio-Tech Grid & Futuristic Glows */}
+      <div className="absolute inset-0 bg-[radial-gradient(#10b981_1px,transparent_1px)] [background-size:28px_28px] opacity-[0.07] pointer-events-none" />
+      <div className="absolute -top-40 -left-40 w-[500px] h-[500px] bg-emerald-400/15 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute -bottom-40 -right-40 w-[500px] h-[500px] bg-emerald-600/10 rounded-full blur-3xl pointer-events-none" />
 
       <div className="w-full max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
-        {/* Left Side Presentation Info - Retro Editorial */}
+        {/* Left Side Presentation Info - Clean Health Tech */}
         <div className="hidden lg:flex lg:col-span-6 flex-col justify-center pr-4 space-y-7">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#ede4d8] text-[#5c4a3b] font-serif-retro font-bold text-xs tracking-wider uppercase border border-[#d8cbba] w-fit shadow-xs">
-            <Bookmark className="w-3.5 h-3.5 text-[#c07a4a]" />
-            <span>Caderno & Gestão Clínica</span>
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 text-emerald-800 font-bold text-xs tracking-wider uppercase border border-emerald-200/80 w-fit shadow-xs">
+            <Bookmark className="w-3.5 h-3.5 text-emerald-600" />
+            <span>Sistema Clínico Inteligente</span>
           </div>
 
-          <h1 className="font-serif-retro text-4xl lg:text-5xl font-black text-[#1e1a17] leading-[1.18] tracking-tight">
-            A arte e a ciência do atendimento <span className="italic font-normal text-[#2b5870] underline decoration-[#c07a4a]/60 underline-offset-8">nutricional</span>.
+          <h1 className="text-4xl lg:text-5xl font-black text-slate-900 leading-[1.18] tracking-tight">
+            A nova geração do atendimento <span className="font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-600 underline decoration-emerald-300 underline-offset-8">nutricional</span>.
           </h1>
 
-          <p className="text-[#594e44] text-base leading-relaxed font-normal">
-            Preserve o cuidado individualizado de cada paciente com prontuários detalhados, acompanhamento antropométrico e planos alimentares em um ambiente acolhedor e clássico.
+          <p className="text-slate-600 text-base leading-relaxed font-normal">
+            Potencialize o acompanhamento de cada paciente com prontuários detalhados, monitoramento antropométrico em tempo real e planos alimentares precisos.
           </p>
 
           <div className="space-y-4 pt-1">
-            <div className="flex items-center gap-3.5 p-3.5 rounded-2xl bg-[#f4ece1]/80 border border-[#e1d5c5] shadow-xs">
-              <div className="p-2.5 rounded-xl bg-[#2a556f] text-[#f7f2ea]">
+            <div className="flex items-center gap-3.5 p-3.5 rounded-2xl bg-white/90 border border-emerald-100/90 shadow-sm shadow-emerald-950/5 backdrop-blur-sm">
+              <div className="p-2.5 rounded-xl bg-emerald-600 text-white shadow-md shadow-emerald-600/20">
                 <ShieldCheck className="w-4 h-4" />
               </div>
               <div className="flex flex-col">
-                <span className="text-sm font-bold text-[#2a241f] font-serif-retro">Segurança e Confidencialidade</span>
-                <span className="text-xs text-[#706456]">Armazenamento seguro em nuvem com PostgreSQL Neon</span>
+                <span className="text-sm font-bold text-slate-900">Segurança & Confiabilidade</span>
+                <span className="text-xs text-slate-500">Banco de dados em nuvem criptografado com Neon Serverless</span>
               </div>
             </div>
 
-            <div className="flex items-center gap-3.5 p-3.5 rounded-2xl bg-[#f4ece1]/80 border border-[#e1d5c5] shadow-xs">
-              <div className="p-2.5 rounded-xl bg-[#c07a4a] text-[#f7f2ea]">
+            <div className="flex items-center gap-3.5 p-3.5 rounded-2xl bg-white/90 border border-emerald-100/90 shadow-sm shadow-emerald-950/5 backdrop-blur-sm">
+              <div className="p-2.5 rounded-xl bg-teal-600 text-white shadow-md shadow-teal-600/20">
                 <HeartPulse className="w-4 h-4" />
               </div>
               <div className="flex flex-col">
-                <span className="text-sm font-bold text-[#2a241f] font-serif-retro">Acompanhamento e Histórico de Consultas</span>
-                <span className="text-xs text-[#706456]">Linha do tempo contínua de evolução clínica e retornos</span>
+                <span className="text-sm font-bold text-slate-900">Histórico Clínico Contínuo</span>
+                <span className="text-xs text-slate-500">Evolução antropométrica, metas e gestão de retornos</span>
               </div>
             </div>
           </div>

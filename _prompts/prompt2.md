@@ -33,8 +33,8 @@ Agora vamos criar a autenticação do sistema. O sistema deve permitir que um nu
 
 ## Design
 - Visual limpo, moderno e profissional
-- Cores predominantes azul claro e branco e cor marrom claro... Remetendo a saúde e bem estar
-- Mantenha um padrão visual clean  com um leve toque futurista
+- Cores predominantes verde e branco,remetendo a saúde e bem estar.
+- Mantenha um padrão visual clean  com um leve toque futurista 
 - Logo com o texto "Nutri HM" no topo de ambas as telas
 
 ## Importante

@@ -104,23 +104,23 @@ export const DashboardMain: React.FC<DashboardMainProps> = ({
 
   return (
     <div className="space-y-8 animate-in fade-in duration-300">
-      {/* Vintage Welcome Banner */}
-      <div className="relative overflow-hidden rounded-3xl bg-[#2a556f] p-8 sm:p-10 text-[#fbf9f5] shadow-lg border-2 border-[#3d6e8b]">
+      {/* Welcome Banner */}
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-emerald-600 to-teal-700 p-8 sm:p-10 text-white shadow-xl shadow-emerald-950/10 border border-emerald-500/30">
         <div className="relative z-10 max-w-2xl space-y-2">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#fbf9f5]/15 text-[#f4ece1] text-xs font-serif-retro font-bold border border-[#fbf9f5]/20">
-            <Bookmark className="w-3.5 h-3.5 text-[#eac39d]" />
-            <span>Caderno Clínico Principal</span>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/15 text-emerald-100 text-xs font-bold border border-white/20">
+            <Bookmark className="w-3.5 h-3.5 text-emerald-200" />
+            <span>Painel Clínico Inteligente</span>
           </div>
-          <h1 className="text-3xl sm:text-4xl font-serif-retro font-black tracking-tight text-[#faf7f2]">
+          <h1 className="text-3xl sm:text-4xl font-black tracking-tight text-white">
             Bem-vindo(a), {user?.name || 'Nutricionista'}!
           </h1>
-          <p className="text-[#d8e6ef] text-sm font-normal leading-relaxed">
+          <p className="text-emerald-100 text-sm font-normal leading-relaxed">
             Visão geral em tempo real dos seus atendimentos, retornos e prontuários clínicos.
           </p>
         </div>
 
-        {/* Vintage Ornament */}
-        <div className="absolute right-0 bottom-0 translate-x-10 translate-y-10 w-60 h-60 bg-[#c07a4a]/20 rounded-full blur-2xl pointer-events-none" />
+        {/* Futuristic Accent Glow */}
+        <div className="absolute right-0 bottom-0 translate-x-10 translate-y-10 w-72 h-72 bg-emerald-400/20 rounded-full blur-3xl pointer-events-none" />
       </div>
 
       {/* Seção dos 3 Cards Principais */}
@@ -128,86 +128,86 @@ export const DashboardMain: React.FC<DashboardMainProps> = ({
         {/* Card 1 — Total de pacientes ativos */}
         <div 
           onClick={onNavigateToPacientes}
-          className="group relative bg-[#fcfaf7] p-7 rounded-3xl border-2 border-[#e6dbcc] shadow-xs hover:shadow-md hover:border-[#c9bba8] transition-all duration-200 flex flex-col justify-between cursor-pointer"
+          className="group relative bg-white p-7 rounded-3xl border border-emerald-100 shadow-sm hover:shadow-md hover:border-emerald-300 transition-all duration-200 flex flex-col justify-between cursor-pointer"
         >
           <div className="flex items-start justify-between">
-            <div className="p-3.5 rounded-2xl bg-[#ede4d8] text-[#2a556f] group-hover:bg-[#2a556f] group-hover:text-[#faf7f2] transition-colors duration-200 border border-[#dacdbd]">
+            <div className="p-3.5 rounded-2xl bg-emerald-50 text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white transition-colors duration-200 border border-emerald-100">
               <Users className="w-6 h-6" />
             </div>
-            <span className="p-2 rounded-xl bg-[#f5efe6] text-[#7d7062] group-hover:text-[#2a556f] transition-colors">
+            <span className="p-2 rounded-xl bg-slate-50 text-slate-400 group-hover:text-emerald-600 transition-colors">
               <ArrowUpRight className="w-4 h-4" />
             </span>
           </div>
 
           <div className="mt-6">
-            <p className="text-[11px] font-bold uppercase tracking-wider text-[#7e7266] font-serif-retro">
+            <p className="text-[11px] font-bold uppercase tracking-wider text-slate-500">
               Total de Pacientes Ativos
             </p>
             <div className="flex items-baseline gap-2 mt-1">
-              <h3 className="text-3xl font-serif-retro font-black text-[#231e1a] tracking-tight">
+              <h3 className="text-3xl font-black text-slate-900 tracking-tight">
                 {loading ? '...' : totalPacientes}
               </h3>
-              <span className="text-xs font-serif-retro font-bold text-[#2a556f]">cadastrados</span>
+              <span className="text-xs font-bold text-emerald-600">cadastrados</span>
             </div>
           </div>
         </div>
 
         {/* Card 2 — Consultas da semana */}
-        <div className="relative bg-[#fcfaf7] p-7 rounded-3xl border-2 border-[#e6dbcc] shadow-xs hover:shadow-md transition-all duration-200 flex flex-col justify-between">
+        <div className="relative bg-white p-7 rounded-3xl border border-emerald-100 shadow-sm hover:shadow-md transition-all duration-200 flex flex-col justify-between">
           <div className="flex items-start justify-between">
-            <div className="p-3.5 rounded-2xl bg-[#f5ebd9] text-[#c07a4a] border border-[#e8d5bf]">
+            <div className="p-3.5 rounded-2xl bg-teal-50 text-teal-600 border border-teal-100">
               <CalendarDays className="w-6 h-6" />
             </div>
-            <span className="inline-flex items-center gap-1 text-[11px] font-serif-retro font-bold px-2.5 py-1 rounded-full bg-[#f4ece1] text-[#6e5844] border border-[#d8cbba]">
+            <span className="inline-flex items-center gap-1 text-[11px] font-bold px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-100">
               <Clock className="w-3 h-3" />
               Esta semana
             </span>
           </div>
 
           <div className="mt-6">
-            <p className="text-[11px] font-bold uppercase tracking-wider text-[#7e7266] font-serif-retro">
+            <p className="text-[11px] font-bold uppercase tracking-wider text-slate-500">
               Consultas da Semana
             </p>
             <div className="flex items-baseline gap-2 mt-1">
-              <h3 className="text-3xl font-serif-retro font-black text-[#231e1a] tracking-tight">
+              <h3 className="text-3xl font-black text-slate-900 tracking-tight">
                 {loading ? '...' : consultasSemana}
               </h3>
-              <span className="text-xs font-serif-retro font-bold text-[#c07a4a]">atendimentos</span>
+              <span className="text-xs font-bold text-teal-600">atendimentos</span>
             </div>
           </div>
         </div>
 
         {/* Card 3 — Pacientes sem retorno */}
-        <div className="relative bg-[#fcfaf7] p-7 rounded-3xl border-2 border-[#e6dbcc] shadow-xs hover:shadow-md transition-all duration-200 flex flex-col justify-between">
+        <div className="relative bg-white p-7 rounded-3xl border border-emerald-100 shadow-sm hover:shadow-md transition-all duration-200 flex flex-col justify-between">
           <div className="flex items-start justify-between">
-            <div className="p-3.5 rounded-2xl bg-[#fdf2f0] text-[#ba3930] border border-[#f3c5c1]">
+            <div className="p-3.5 rounded-2xl bg-rose-50 text-rose-600 border border-rose-100">
               <UserX className="w-6 h-6" />
             </div>
-            <span className={`inline-flex items-center gap-1 text-[11px] font-serif-retro font-bold px-2.5 py-1 rounded-full border ${
+            <span className={`inline-flex items-center gap-1 text-[11px] font-bold px-2.5 py-1 rounded-full border ${
               pacientesSemRetorno.length > 0 
-                ? 'bg-[#fdf2f0] text-[#9a342d] border-[#f3c5c1]' 
-                : 'bg-[#eef5ee] text-[#2e6930] border-[#c2dfc4]'
+                ? 'bg-rose-50 text-rose-700 border-rose-200' 
+                : 'bg-emerald-50 text-emerald-700 border-emerald-200'
             }`}>
               {pacientesSemRetorno.length > 0 ? 'Atenção' : 'Em dia'}
             </span>
           </div>
 
           <div className="mt-6">
-            <p className="text-[11px] font-bold uppercase tracking-wider text-[#7e7266] font-serif-retro">
+            <p className="text-[11px] font-bold uppercase tracking-wider text-slate-500">
               Pacientes Sem Retorno
             </p>
             <div className="flex items-baseline gap-2 mt-1">
-              <h3 className="text-3xl font-serif-retro font-black text-[#231e1a] tracking-tight">
+              <h3 className="text-3xl font-black text-slate-900 tracking-tight">
                 {loading ? '...' : pacientesSemRetorno.length}
               </h3>
-              <span className="text-xs font-serif-retro font-bold text-[#ba3930]">&gt; 30 dias sem consulta</span>
+              <span className="text-xs font-bold text-rose-600">&gt; 30 dias sem consulta</span>
             </div>
           </div>
         </div>
       </div>
 
       {/* Card 3 Detalhado — Lista com o nome dos pacientes sem retorno */}
-      <div className="bg-[#fcfaf7] rounded-3xl border-2 border-[#e6dbcc] shadow-xs p-7 sm:p-8 space-y-6">
+      <div className="bg-white rounded-3xl border border-emerald-100 shadow-sm p-7 sm:p-8 space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-5 border-b border-[#ebdfd1]">
           <div>
             <h2 className="text-lg font-serif-retro font-bold text-[#231e1a] flex items-center gap-2.5">

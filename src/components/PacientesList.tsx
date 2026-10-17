@@ -1,15 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import { sql } from '../lib/auth';
 import { useAuth } from '../context/AuthContext';
-import { Users, Search, ChevronRight } from 'lucide-react';
+import { Users, Search, ChevronRight, UserPlus, Calendar, Target } from 'lucide-react';
+
+interface PacienteItem {
+  id: string;
+  nome: string;
+  email: string | null;
+  whatsapp: string | null;
+  objetivos: string[] | null;
+  objetivo_texto: string | null;
+  created_at: string;
+  ultima_consulta: string | null;
+}
 
 interface PacientesListProps {
   onSelectPaciente: (id: string) => void;
+  onNovoPaciente: () => void;
 }
 
-export const PacientesList: React.FC<PacientesListProps> = ({ onSelectPaciente }) => {
+export const PacientesList: React.FC<PacientesListProps> = ({ 
+  onSelectPaciente, 
+  onNovoPaciente 
+}) => {
   const { user } = useAuth();
-  const [pacientes, setPacientes] = useState<any[]>([]);
+  const [pacientes, setPacientes] = useState<PacienteItem[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(true);
 
@@ -18,12 +33,26 @@ export const PacientesList: React.FC<PacientesListProps> = ({ onSelectPaciente }
       if (!user) return;
       try {
         setLoading(true);
+        // Busca todos os pacientes da nutricionista logada junto com a data da última consulta
         const res = await sql`
-          SELECT * FROM public.pacientes
-          WHERE nutricionista_id = ${user.id}::uuid
-          ORDER BY nome ASC;
+          SELECT 
+            p.id,
+            p.nome,
+            p.email,
+            p.whatsapp,
+            p.objetivos,
+            p.objetivo_texto,
+            p.created_at,
+            (
+              SELECT MAX(c.data_consulta)
+              FROM public.consultas c
+              WHERE c.paciente_id = p.id
+            ) as ultima_consulta
+          FROM public.pacientes p
+          WHERE p.nutricionista_id = ${user.id}::uuid
+          ORDER BY p.nome ASC;
         `;
-        setPacientes(res || []);
+        setPacientes((res || []) as PacienteItem[]);
       } catch (err) {
         console.error('Erro ao buscar pacientes:', err);
       } finally {
@@ -34,96 +63,159 @@ export const PacientesList: React.FC<PacientesListProps> = ({ onSelectPaciente }
     loadPacientes();
   }, [user]);
 
+  // Filtro de busca por nome
   const filteredPacientes = pacientes.filter((p) =>
-    p.nome?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    p.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    p.whatsapp?.includes(searchTerm)
+    p.nome?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
     <div className="space-y-6 animate-in fade-in duration-300">
-      {/* Header */}
+      {/* Top Header & Actions */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-serif-retro font-black text-[#231e1a] tracking-tight">Registro de Pacientes</h1>
-          <p className="text-xs text-[#706456] font-medium">Lista de todos os prontuários ativos no consultório</p>
+          <h1 className="text-2xl font-black text-slate-900 tracking-tight">Pacientes</h1>
+          <p className="text-xs text-slate-500 font-medium">
+            Gerenciamento e prontuários dos pacientes cadastrados
+          </p>
         </div>
 
-        {/* Search Input Retrô */}
-        <div className="relative w-full sm:w-72">
-          <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#8e8071]" />
-          <input
-            type="text"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            placeholder="Pesquisar por nome ou telefone..."
-            className="w-full pl-10 pr-4 py-2 bg-[#fbf9f5] border-2 border-[#e6dbcc] rounded-2xl text-xs font-medium text-[#2c241e] placeholder-[#9f9181] focus:outline-none focus:ring-2 focus:ring-[#2b5870]/30 focus:border-[#2b5870] shadow-xs"
-          />
+        <div className="flex items-center gap-3">
+          {/* Botão Novo Paciente */}
+          <button
+            type="button"
+            onClick={onNovoPaciente}
+            className="flex items-center gap-2 px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-2xl shadow-md shadow-emerald-600/20 hover:shadow-emerald-600/30 transition-all cursor-pointer whitespace-nowrap"
+          >
+            <UserPlus className="w-4 h-4" />
+            <span>Novo Paciente</span>
+          </button>
         </div>
       </div>
 
+      {/* Barra de Busca por Nome */}
+      <div className="relative w-full">
+        <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+        <input
+          type="text"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          placeholder="Buscar paciente por nome..."
+          className="w-full pl-10 pr-4 py-2.5 bg-white border border-emerald-100 rounded-2xl text-xs font-medium text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 shadow-xs"
+        />
+      </div>
+
       {/* Content Table */}
-      <div className="bg-[#fcfaf7] rounded-3xl border-2 border-[#e6dbcc] shadow-xs overflow-hidden">
+      <div className="bg-white rounded-3xl border border-emerald-100 shadow-sm overflow-hidden">
         {loading ? (
           <div className="flex flex-col items-center justify-center py-20">
-            <div className="w-8 h-8 border-4 border-[#c9bba8] border-t-[#2b5870] rounded-full animate-spin mb-2" />
-            <span className="text-xs text-[#706456] font-serif-retro font-semibold">Buscando registros clínicos...</span>
+            <div className="w-8 h-8 border-4 border-emerald-200 border-t-emerald-600 rounded-full animate-spin mb-2" />
+            <span className="text-xs text-slate-500 font-semibold">Carregando pacientes...</span>
           </div>
         ) : filteredPacientes.length === 0 ? (
-          <div className="p-12 text-center space-y-3">
-            <div className="w-14 h-14 mx-auto rounded-2xl bg-[#ede4d8] text-[#2a556f] border border-[#dacdbd] flex items-center justify-center">
-              <Users className="w-7 h-7" />
+          <div className="p-12 text-center space-y-4">
+            <div className="w-16 h-16 mx-auto rounded-3xl bg-emerald-50 text-emerald-600 border border-emerald-100 flex items-center justify-center">
+              <Users className="w-8 h-8" />
             </div>
-            <h3 className="font-serif-retro font-bold text-[#231e1a] text-base">Nenhum paciente localizado</h3>
-            <p className="text-xs text-[#706456] max-w-sm mx-auto">
-              {searchTerm ? 'Nenhum prontuário corresponde ao termo pesquisado.' : 'Você ainda não possui pacientes cadastrados no banco de dados.'}
-            </p>
+            {pacientes.length === 0 ? (
+              <div className="space-y-1">
+                <h3 className="font-bold text-slate-800 text-base">Nenhum paciente cadastrado ainda</h3>
+                <p className="text-xs text-slate-500 max-w-sm mx-auto">
+                  Clique no botão "Novo Paciente" para cadastrar seu primeiro atendimento clínico.
+                </p>
+                <div className="pt-3">
+                  <button
+                    type="button"
+                    onClick={onNovoPaciente}
+                    className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl shadow-sm cursor-pointer"
+                  >
+                    <UserPlus className="w-4 h-4" />
+                    <span>Cadastrar Primeiro Paciente</span>
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div className="space-y-1">
+                <h3 className="font-bold text-slate-800 text-base">Nenhum paciente encontrado</h3>
+                <p className="text-xs text-slate-500 max-w-sm mx-auto">
+                  Nenhum paciente com o nome "{searchTerm}" foi localizado na sua lista.
+                </p>
+              </div>
+            )}
           </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-left text-sm">
-              <thead className="bg-[#f5efe6] border-b border-[#ebdfd1] text-[#8a7c6f] text-[11px] uppercase font-bold font-serif-retro tracking-wider">
+              <thead className="bg-emerald-50/50 border-b border-emerald-100 text-slate-500 text-[11px] uppercase font-bold tracking-wider">
                 <tr>
                   <th className="py-3.5 px-6">Nome do Paciente</th>
-                  <th className="py-3.5 px-6">Contato</th>
-                  <th className="py-3.5 px-6">Objetivo Principal</th>
-                  <th className="py-3.5 px-6">Cadastro</th>
+                  <th className="py-3.5 px-6">Objetivo</th>
+                  <th className="py-3.5 px-6">Última Consulta</th>
                   <th className="py-3.5 px-6 text-right">Ação</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#ebdfd1]/60">
-                {filteredPacientes.map((p) => (
-                  <tr
-                    key={p.id}
-                    onClick={() => onSelectPaciente(p.id)}
-                    className="hover:bg-[#f5efe6] cursor-pointer transition-colors group"
-                  >
-                    <td className="py-4 px-6 font-bold text-[#231e1a] flex items-center gap-3">
-                      <div className="w-9 h-9 rounded-xl bg-[#ede4d8] text-[#5c4a3b] font-serif-retro font-bold flex items-center justify-center text-xs border border-[#dacdbd] group-hover:bg-[#2a556f] group-hover:text-[#fbf9f5] transition-colors">
-                        {p.nome?.charAt(0).toUpperCase() || 'P'}
-                      </div>
-                      <span className="font-serif-retro text-sm group-hover:text-[#2a556f] transition-colors">{p.nome}</span>
-                    </td>
-                    <td className="py-4 px-6 text-[#594e44] text-xs">
-                      <div>{p.whatsapp || '-'}</div>
-                      <div className="text-[#8e8071] text-[11px]">{p.email || ''}</div>
-                    </td>
-                    <td className="py-4 px-6 text-[#594e44] text-xs">
-                      <span className="inline-block px-2.5 py-1 rounded-xl bg-[#ede4d8] text-[#5c4a3b] font-serif-retro font-semibold text-[11px] border border-[#dacdbd]">
-                        {p.objetivo_texto || (Array.isArray(p.objetivos) && p.objetivos.length > 0 ? p.objetivos[0] : 'Geral')}
-                      </span>
-                    </td>
-                    <td className="py-4 px-6 text-[#8e8071] text-xs font-serif-retro">
-                      {p.created_at ? new Date(p.created_at).toLocaleDateString('pt-BR') : '-'}
-                    </td>
-                    <td className="py-4 px-6 text-right">
-                      <button className="text-[#2a556f] hover:text-[#1c3a4d] font-serif-retro font-bold text-xs inline-flex items-center gap-1 group-hover:translate-x-0.5 transition-transform cursor-pointer">
-                        <span>Abrir Prontuário</span>
-                        <ChevronRight className="w-4 h-4" />
-                      </button>
-                    </td>
-                  </tr>
-                ))}
+              <tbody className="divide-y divide-emerald-50">
+                {filteredPacientes.map((p) => {
+                  const objetivoExibido = p.objetivo_texto || (Array.isArray(p.objetivos) && p.objetivos.length > 0 ? p.objetivos.join(', ') : 'Geral');
+
+                  return (
+                    <tr
+                      key={p.id}
+                      onClick={() => onSelectPaciente(p.id)}
+                      className="hover:bg-emerald-50/40 cursor-pointer transition-colors group"
+                    >
+                      {/* Nome */}
+                      <td className="py-4 px-6 font-bold text-slate-900 flex items-center gap-3">
+                        <div className="w-9 h-9 rounded-xl bg-emerald-100/70 text-emerald-800 font-bold flex items-center justify-center text-xs border border-emerald-200/60 group-hover:bg-emerald-600 group-hover:text-white transition-colors">
+                          {p.nome?.charAt(0).toUpperCase() || 'P'}
+                        </div>
+                        <div className="flex flex-col">
+                          <span className="text-sm font-bold text-slate-900 group-hover:text-emerald-700 transition-colors">
+                            {p.nome}
+                          </span>
+                          {p.whatsapp && (
+                            <span className="text-[11px] text-slate-400 font-normal">
+                              {p.whatsapp}
+                            </span>
+                          )}
+                        </div>
+                      </td>
+
+                      {/* Objetivo */}
+                      <td className="py-4 px-6 text-slate-600 text-xs">
+                        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-emerald-50 text-emerald-800 font-semibold text-[11px] border border-emerald-100/80 max-w-xs truncate">
+                          <Target className="w-3 h-3 text-emerald-600 shrink-0" />
+                          <span className="truncate">{objetivoExibido}</span>
+                        </span>
+                      </td>
+
+                      {/* Data da Última Consulta */}
+                      <td className="py-4 px-6 text-slate-600 text-xs">
+                        <div className="flex items-center gap-1.5">
+                          <Calendar className="w-3.5 h-3.5 text-slate-400" />
+                          <span>
+                            {p.ultima_consulta
+                              ? new Date(p.ultima_consulta).toLocaleDateString('pt-BR')
+                              : 'Nenhuma realizada'}
+                          </span>
+                        </div>
+                      </td>
+
+                      {/* Ação */}
+                      <td className="py-4 px-6 text-right">
+                        <button 
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            onSelectPaciente(p.id);
+                          }}
+                          className="text-emerald-700 hover:text-emerald-900 font-bold text-xs inline-flex items-center gap-1 group-hover:translate-x-0.5 transition-transform cursor-pointer"
+                        >
+                          <span>Ver Perfil</span>
+                          <ChevronRight className="w-4 h-4" />
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>

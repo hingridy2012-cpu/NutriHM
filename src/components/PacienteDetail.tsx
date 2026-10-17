@@ -73,92 +73,167 @@ export const PacienteDetail: React.FC<PacienteDetailProps> = ({ pacienteId, onBa
       <div className="flex items-center gap-4">
         <button
           onClick={onBack}
-          className="p-2.5 rounded-2xl bg-[#fcfaf7] border-2 border-[#e6dbcc] hover:bg-[#ede4d8] text-[#5c4a3b] transition-all shadow-xs cursor-pointer"
-          title="Voltar"
+          className="p-2.5 rounded-2xl bg-white border border-emerald-100 hover:bg-emerald-50 text-slate-700 transition-all shadow-xs cursor-pointer"
+          title="Voltar para Pacientes"
         >
-          <ArrowLeft className="w-4 h-4" />
+          <ArrowLeft className="w-5 h-5 text-emerald-700" />
         </button>
         <div>
-          <h1 className="text-2xl font-serif-retro font-black text-[#231e1a]">{paciente.nome}</h1>
-          <p className="text-xs text-[#706456] font-medium">Prontuário & Histórico de Avaliações Clínicas</p>
+          <h1 className="text-2xl font-black text-slate-900 tracking-tight">{paciente.nome}</h1>
+          <p className="text-xs text-slate-500 font-medium">Prontuário & Histórico Clínico do Paciente</p>
         </div>
       </div>
 
       {/* Info Cards Grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Card Dados Pessoais */}
-        <div className="bg-[#fcfaf7] p-6 rounded-3xl border-2 border-[#e6dbcc] shadow-xs space-y-4">
+        <div className="bg-white p-6 rounded-3xl border border-emerald-100 shadow-sm space-y-4">
           <div className="flex items-center gap-3">
-            <div className="p-2.5 rounded-xl bg-[#ede4d8] text-[#2a556f] border border-[#dacdbd]">
+            <div className="p-2.5 rounded-xl bg-emerald-50 text-emerald-700 border border-emerald-100">
               <User className="w-5 h-5" />
             </div>
-            <h3 className="font-serif-retro font-bold text-[#231e1a] text-sm">Dados Cadastrais</h3>
+            <h3 className="font-bold text-slate-900 text-sm">Dados Pessoais</h3>
           </div>
 
-          <div className="space-y-2.5 text-xs">
-            <div className="flex items-center gap-2 text-[#594e44]">
-              <Phone className="w-4 h-4 text-[#8e8071] shrink-0" />
-              <span>{paciente.whatsapp || 'WhatsApp não informado'}</span>
+          <div className="space-y-2.5 text-xs text-slate-600">
+            <div className="flex items-center gap-2">
+              <Phone className="w-4 h-4 text-emerald-600 shrink-0" />
+              <span>{paciente.whatsapp || 'Telefone não informado'}</span>
             </div>
-            <div className="flex items-center gap-2 text-[#594e44]">
-              <Mail className="w-4 h-4 text-[#8e8071] shrink-0" />
-              <span className="truncate">{paciente.email || 'Email não informado'}</span>
+            <div className="flex items-center gap-2">
+              <Mail className="w-4 h-4 text-emerald-600 shrink-0" />
+              <span className="truncate">{paciente.email || 'E-mail não informado'}</span>
             </div>
-            <div className="flex items-center gap-2 text-[#594e44]">
-              <Calendar className="w-4 h-4 text-[#8e8071] shrink-0" />
-              <span>Nascimento: {paciente.data_nascimento ? new Date(paciente.data_nascimento).toLocaleDateString('pt-BR') : 'Não informado'}</span>
+            <div className="flex items-center gap-2">
+              <Calendar className="w-4 h-4 text-emerald-600 shrink-0" />
+              <span>
+                {paciente.data_nascimento 
+                  ? `${new Date(paciente.data_nascimento).toLocaleDateString('pt-BR')} ${paciente.sexo ? `(${paciente.sexo})` : ''}` 
+                  : (paciente.sexo || 'Nascimento não informado')}
+              </span>
             </div>
           </div>
         </div>
 
         {/* Card Antropometria */}
-        <div className="bg-[#fcfaf7] p-6 rounded-3xl border-2 border-[#e6dbcc] shadow-xs space-y-4">
+        <div className="bg-white p-6 rounded-3xl border border-emerald-100 shadow-sm space-y-4">
           <div className="flex items-center gap-3">
-            <div className="p-2.5 rounded-xl bg-[#f5ebd9] text-[#c07a4a] border border-[#e8d5bf]">
+            <div className="p-2.5 rounded-xl bg-teal-50 text-teal-700 border border-teal-100">
               <Weight className="w-5 h-5" />
             </div>
-            <h3 className="font-serif-retro font-bold text-[#231e1a] text-sm">Medidas Iniciais</h3>
+            <h3 className="font-bold text-slate-900 text-sm">Medidas Iniciais</h3>
           </div>
 
           <div className="grid grid-cols-2 gap-3 text-xs">
-            <div className="p-3 bg-[#f5efe6] rounded-2xl border border-[#dacdbd]">
-              <span className="text-[10px] font-serif-retro font-bold text-[#8a7c6f] uppercase">Peso Inicial</span>
-              <p className="text-base font-serif-retro font-black text-[#231e1a] mt-0.5">{paciente.peso_inicial ? `${paciente.peso_inicial} kg` : '-'}</p>
+            <div className="p-3 bg-emerald-50/50 rounded-2xl border border-emerald-100">
+              <span className="text-[10px] font-bold text-slate-500 uppercase">Peso Inicial</span>
+              <p className="text-base font-black text-slate-900 mt-0.5">
+                {paciente.peso_inicial ? `${paciente.peso_inicial} kg` : '-'}
+              </p>
             </div>
-            <div className="p-3 bg-[#f5efe6] rounded-2xl border border-[#dacdbd]">
-              <span className="text-[10px] font-serif-retro font-bold text-[#8a7c6f] uppercase">Estatura</span>
-              <p className="text-base font-serif-retro font-black text-[#231e1a] mt-0.5">{paciente.altura ? `${paciente.altura} m` : '-'}</p>
+            <div className="p-3 bg-emerald-50/50 rounded-2xl border border-emerald-100">
+              <span className="text-[10px] font-bold text-slate-500 uppercase">Altura</span>
+              <p className="text-base font-black text-slate-900 mt-0.5">
+                {paciente.altura ? `${paciente.altura > 3 ? (paciente.altura/100).toFixed(2) : paciente.altura} m` : '-'}
+              </p>
             </div>
           </div>
         </div>
 
         {/* Card Hábitos & Estilo de Vida */}
-        <div className="bg-[#fcfaf7] p-6 rounded-3xl border-2 border-[#e6dbcc] shadow-xs space-y-4">
+        <div className="bg-white p-6 rounded-3xl border border-emerald-100 shadow-sm space-y-4">
           <div className="flex items-center gap-3">
-            <div className="p-2.5 rounded-xl bg-[#ede4d8] text-[#2a556f] border border-[#dacdbd]">
+            <div className="p-2.5 rounded-xl bg-emerald-50 text-emerald-700 border border-emerald-100">
               <Activity className="w-5 h-5" />
             </div>
-            <h3 className="font-serif-retro font-bold text-[#231e1a] text-sm">Estilo de Vida</h3>
+            <h3 className="font-bold text-slate-900 text-sm">Rotina & Hábitos</h3>
           </div>
 
-          <div className="space-y-1.5 text-xs text-[#594e44]">
-            <p><span className="font-serif-retro font-bold text-[#231e1a]">Objetivo:</span> {paciente.objetivo_texto || (Array.isArray(paciente.objetivos) ? paciente.objetivos.join(', ') : 'Não informado')}</p>
-            <p><span className="font-serif-retro font-bold text-[#231e1a]">Atividade Física:</span> {paciente.atividade_fisica ? 'Sim' : 'Não'}</p>
-            <p><span className="font-serif-retro font-bold text-[#231e1a]">Água Diária:</span> {paciente.litros_agua ? `${paciente.litros_agua} L/dia` : '-'}</p>
+          <div className="space-y-1.5 text-xs text-slate-600">
+            <p>
+              <span className="font-bold text-slate-800">Objetivo:</span>{' '}
+              {paciente.objetivo_texto || (Array.isArray(paciente.objetivos) && paciente.objetivos.length > 0 ? paciente.objetivos.join(', ') : 'Não informado')}
+            </p>
+            <p>
+              <span className="font-bold text-slate-800">Atividade Física:</span>{' '}
+              {paciente.atividade_fisica ? `Sim (${paciente.atividade_fisica_descricao || 'Não detalhada'})` : 'Não'}
+            </p>
+            <p>
+              <span className="font-bold text-slate-800">Água Diária:</span>{' '}
+              {paciente.litros_agua ? `${paciente.litros_agua} litros` : 'Não informado'}
+            </p>
+            {(paciente.horario_acorda || paciente.horario_dorme) && (
+              <p>
+                <span className="font-bold text-slate-800">Sono:</span>{' '}
+                Acorda {paciente.horario_acorda || '-'} | Dorme {paciente.horario_dorme || '-'}
+              </p>
+            )}
           </div>
         </div>
       </div>
 
+      {/* Condições Clínicas / Alergias / Medicamentos */}
+      {(
+        (Array.isArray(paciente.patologias) && paciente.patologias.length > 0) ||
+        (Array.isArray(paciente.restricoes_alimentares) && paciente.restricoes_alimentares.length > 0) ||
+        (Array.isArray(paciente.alergias) && paciente.alergias.length > 0) ||
+        paciente.medicamentos ||
+        paciente.suplementos ||
+        paciente.observacoes
+      ) && (
+        <div className="bg-white rounded-3xl border border-emerald-100 p-6 shadow-sm space-y-4">
+          <h3 className="font-bold text-slate-900 text-sm">Quadro Clínico & Observações</h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+            {Array.isArray(paciente.patologias) && paciente.patologias.length > 0 && (
+              <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-100 space-y-1">
+                <span className="font-bold text-slate-700">Patologias / Condições:</span>
+                <p className="text-slate-600">{paciente.patologias.join(', ')}</p>
+              </div>
+            )}
+            {Array.isArray(paciente.restricoes_alimentares) && paciente.restricoes_alimentares.length > 0 && (
+              <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-100 space-y-1">
+                <span className="font-bold text-slate-700">Restrições Alimentares:</span>
+                <p className="text-slate-600">{paciente.restricoes_alimentares.join(', ')}</p>
+              </div>
+            )}
+            {Array.isArray(paciente.alergias) && paciente.alergias.length > 0 && (
+              <div className="p-3.5 rounded-2xl bg-rose-50/60 border border-rose-100 space-y-1">
+                <span className="font-bold text-rose-800">Alergias Alimentares:</span>
+                <p className="text-rose-700">{paciente.alergias.join(', ')}</p>
+              </div>
+            )}
+            {paciente.medicamentos && (
+              <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-100 space-y-1">
+                <span className="font-bold text-slate-700">Medicamentos:</span>
+                <p className="text-slate-600">{paciente.medicamentos}</p>
+              </div>
+            )}
+            {paciente.suplementos && (
+              <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-100 space-y-1">
+                <span className="font-bold text-slate-700">Suplementos:</span>
+                <p className="text-slate-600">{paciente.suplementos}</p>
+              </div>
+            )}
+            {paciente.observacoes && (
+              <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-100 space-y-1 md:col-span-3">
+                <span className="font-bold text-slate-700">Observações Gerais:</span>
+                <p className="text-slate-600 whitespace-pre-line">{paciente.observacoes}</p>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
       {/* Histórico de Consultas */}
-      <div className="bg-[#fcfaf7] rounded-3xl border-2 border-[#e6dbcc] p-6 sm:p-7 shadow-xs space-y-4">
-        <h3 className="font-serif-retro font-bold text-[#231e1a] text-base">Registro Histórico de Atendimentos</h3>
+      <div className="bg-white rounded-3xl border border-emerald-100 p-6 sm:p-7 shadow-sm space-y-4">
+        <h3 className="font-bold text-slate-900 text-base">Histórico de Atendimentos</h3>
         {consultas.length === 0 ? (
-          <p className="text-xs text-[#706456] py-4">Nenhuma consulta registrada para este prontuário ainda.</p>
+          <p className="text-xs text-slate-500 py-3">Nenhuma consulta registrada para este prontuário ainda.</p>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="text-[#8a7c6f] border-b border-[#ebdfd1] text-[11px] uppercase font-serif-retro font-bold text-left">
+                <tr className="text-slate-500 border-b border-emerald-100 text-[11px] uppercase font-bold text-left">
                   <th className="pb-3 px-4">Data Consulta</th>
                   <th className="pb-3 px-4">Peso</th>
                   <th className="pb-3 px-4">Cintura</th>
@@ -167,19 +242,19 @@ export const PacienteDetail: React.FC<PacienteDetailProps> = ({ pacienteId, onBa
                   <th className="pb-3 px-4">Observações</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#ebdfd1]/60">
+              <tbody className="divide-y divide-emerald-50">
                 {consultas.map((c) => (
-                  <tr key={c.id} className="hover:bg-[#f5efe6]">
-                    <td className="py-3 px-4 font-serif-retro font-bold text-[#231e1a]">
+                  <tr key={c.id} className="hover:bg-emerald-50/30">
+                    <td className="py-3 px-4 font-bold text-slate-900">
                       {c.data_consulta ? new Date(c.data_consulta).toLocaleDateString('pt-BR') : '-'}
                     </td>
-                    <td className="py-3 px-4 text-[#594e44] text-xs">{c.peso ? `${c.peso} kg` : '-'}</td>
-                    <td className="py-3 px-4 text-[#594e44] text-xs">{c.cintura ? `${c.cintura} cm` : '-'}</td>
-                    <td className="py-3 px-4 text-[#594e44] text-xs">{c.quadril ? `${c.quadril} cm` : '-'}</td>
-                    <td className="py-3 px-4 font-serif-retro font-bold text-[#2a556f] text-xs">
+                    <td className="py-3 px-4 text-slate-600 text-xs">{c.peso ? `${c.peso} kg` : '-'}</td>
+                    <td className="py-3 px-4 text-slate-600 text-xs">{c.cintura ? `${c.cintura} cm` : '-'}</td>
+                    <td className="py-3 px-4 text-slate-600 text-xs">{c.quadril ? `${c.quadril} cm` : '-'}</td>
+                    <td className="py-3 px-4 font-bold text-emerald-700 text-xs">
                       {c.proximo_retorno ? new Date(c.proximo_retorno).toLocaleDateString('pt-BR') : 'Sem retorno'}
                     </td>
-                    <td className="py-3 px-4 text-[#706456] text-xs max-w-xs truncate">{c.observacoes || '-'}</td>
+                    <td className="py-3 px-4 text-slate-500 text-xs max-w-xs truncate">{c.observacoes || '-'}</td>
                   </tr>
                 ))}
               </tbody>

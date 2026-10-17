@@ -3,9 +3,10 @@ import { Sidebar } from '../components/Sidebar';
 import { DashboardMain } from '../components/DashboardMain';
 import { PacientesList } from '../components/PacientesList';
 import { PacienteDetail } from '../components/PacienteDetail';
+import { PacienteForm } from '../components/PacienteForm';
 
 export const Dashboard: React.FC = () => {
-  const [currentView, setCurrentView] = useState<'dashboard' | 'pacientes' | 'paciente-detalhe'>('dashboard');
+  const [currentView, setCurrentView] = useState<'dashboard' | 'pacientes' | 'paciente-detalhe' | 'paciente-novo'>('dashboard');
   const [selectedPacienteId, setSelectedPacienteId] = useState<string | null>(null);
 
   const handleSelectPaciente = (id: string) => {
@@ -18,10 +19,19 @@ export const Dashboard: React.FC = () => {
     setSelectedPacienteId(null);
   };
 
+  const handleNovoPaciente = () => {
+    setSelectedPacienteId(null);
+    setCurrentView('paciente-novo');
+  };
+
+  const handleSuccessNovoPaciente = (newPacienteId: string) => {
+    setSelectedPacienteId(newPacienteId);
+    setCurrentView('paciente-detalhe');
+  };
 
   return (
     <div className="min-h-screen bg-slate-50/80 flex flex-col md:flex-row">
-      {/* Sidebar Fixo com logo Nutri HM */}
+      {/* Sidebar Fixo com logo Nutri HM mantido */}
       <Sidebar
         currentView={currentView}
         onNavigate={handleNavigate}
@@ -39,13 +49,21 @@ export const Dashboard: React.FC = () => {
         {currentView === 'pacientes' && (
           <PacientesList
             onSelectPaciente={handleSelectPaciente}
+            onNovoPaciente={handleNovoPaciente}
+          />
+        )}
+
+        {currentView === 'paciente-novo' && (
+          <PacienteForm
+            onSuccess={handleSuccessNovoPaciente}
+            onCancel={() => setCurrentView('pacientes')}
           />
         )}
 
         {currentView === 'paciente-detalhe' && selectedPacienteId && (
           <PacienteDetail
             pacienteId={selectedPacienteId}
-            onBack={() => setCurrentView('dashboard')}
+            onBack={() => setCurrentView('pacientes')}
           />
         )}
       </main>
